@@ -45,7 +45,7 @@ $(document).ready(function () {
   var correctCount = 0;
   var wrongCount = 0;
   var unanswerCount = 0;
-  var timer = 11;
+  var timer = 16;
   var intervalId;
   var userGuess ="";
   var clockRunning = false;
@@ -76,13 +76,13 @@ $(document).ready(function () {
   //timer countdown
   function countDown() {
     timer--;
-    $("#timeLeft").html("<h3> Time Remaining: " + timer + "</h3>");
+    $("#timeLeft").html("<h2> Time Remaining: " + timer + "</h2>");
     //stop timer if reach 0
     if (timer === 0) {
       unanswerCount++;
       stop();
       $("#answerSection").html("<h3> Time is up! The correct answer is: " + pick.choice[pick.answer] + "</h3>");
-      $("#answerSection").append('<img src="assets/images/brian.png" class="img-card" height=200 alt="brian">');
+      $("#answerSection").append('<img src="assets/images/brian.png" class="img-card" height=250 alt="brian">');
       endGame();
     }
   }
@@ -100,9 +100,9 @@ $(document).ready(function () {
     // index = options.length;
     pick = options[index];
     //iterate through answer array and display
-    $("#questionSection").html("<h4>" + pick.question + "</h4>");
+    $("#questionSection").html("<h3>" + pick.question + "</h3>");
     for(var i = 0; i < pick.choice.length; i++) {
-      var userChoice = $("<li>");
+      var userChoice = $("<h4>");
       userChoice.addClass("answerChoice list-group-item");
       userChoice.html(pick.choice[i]);
       //assign array position to it so can check answer
@@ -110,24 +110,31 @@ $(document).ready(function () {
       $("#answerSection").append(userChoice);
     }
 
+    // Change the background color when mouse hovers an answer
+    $(".answerChoice").hover(function(){
+      $(this).css("background-color", "yellow");
+      }, function(){
+      $(this).css("background-color", "transparent");
+    });
+
     //click function to select answer and outcomes
-    $(".answerChoice").on("click", function () {
+    $(".answerChoice").on("click", function(){
     //grab array position from userGuess
       userGuess = parseInt($(this).attr("userGuess"));
       //correct guess or wrong guess outcomes
-      if (userGuess === pick.answer) {
+      if (userGuess === pick.answer){
         stop();
         correctCount++;
         userGuess="";
-        $("#answerSection").html("<h4>Correct!</h4>");
-        $("#answerSection").append('<img src="assets/images/peter.png" class="img-card" height=200 alt="peter">');
+        $("#answerSection").html("<h3>Correct!</h3>");
+        $("#answerSection").append('<img src="assets/images/peter.png" class="img-card" width=250 alt="peter">');
         endGame();
       } else {
         stop();
         wrongCount++;
         userGuess="";
-        $("#answerSection").html("<h4>Wrong! The correct answer is: " + pick.choice[pick.answer] + "</h4>");
-        $("#answerSection").append('<img src="assets/images/monkey.png" class="img-card" height=200 alt="monkey">');
+        $("#answerSection").html("<h3>Wrong! The correct answer is: " + pick.choice[pick.answer] + "</h3>");
+        $("#answerSection").append('<img src="assets/images/monkey.png" class="img-card" width=250 alt="monkey">');
         endGame();
       }
     })
@@ -144,7 +151,7 @@ $(document).ready(function () {
 
     var resetQuestion = setTimeout(function() {
       $("#answerSection").empty();
-      timer= 11;
+      timer= 16;
 
     //run the score screen if all questions answered
     if ((wrongCount + correctCount + unanswerCount) === questionCount) {
