@@ -56,7 +56,7 @@ $(document).ready(function () {
   var newArray = [];
   var holder = [];
 
-  $("#reset").hide();
+  // $("#reset").hide();
   //click start button to start game
   $("#start").on("click", function () {
     $("#start").hide();
@@ -160,7 +160,7 @@ $(document).ready(function () {
       $("#answerSection").append("<h4> Correct: " + correctCount + "</h4>" );
       $("#answerSection").append("<h4> Incorrect: " + wrongCount + "</h4>" );
       $("#answerSection").append("<h4> Unanswered: " + unanswerCount + "</h4>" );
-      $("#reset").show();
+      $("#reset").append("<button class ='btn btn-success btn-lg'>Play Again?</button>");
       correctCount = 0;
       wrongCount = 0;
       unanswerCount = 0;
